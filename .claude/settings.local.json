@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm)",
+      "Bash(npm install *)",
+      "Bash(npx next *)",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__list_organizations",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__get_cost",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__confirm_cost",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__create_project",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__list_projects",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__pause_project",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__get_project_url",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__get_publishable_keys",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__apply_migration",
+      "mcp__d5d46b6a-84ab-4f83-8e1b-73e7890cfaf8__execute_sql",
+      "Bash(gh auth *)",
+      "PowerShell(gh auth status 2>&1)"
+    ]
+  }
+}
