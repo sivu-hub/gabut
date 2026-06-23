@@ -42,36 +42,35 @@ export default function AuthPage() {
       }
 
       if (isLogin) {
-        const { data, error: err } = await supabase
+        const { data: users, error: err } = await supabase
           .from('users')
           .select('*')
           .eq('nickname', nickname)
           .eq('password', password)
-          .single()
 
-        if (err || !data) {
+        if (err || !users || users.length === 0) {
           setError('Nickname atau password salah')
           setLoading(false)
           return
         }
 
-        await supabase.from('users').update({ online: true }).eq('id', data.id)
-        localStorage.setItem('gabut_user', JSON.stringify(data))
+        const user = users[0]
+        await supabase.from('users').update({ online: true }).eq('id', user.id)
+        localStorage.setItem('gabut_user', JSON.stringify(user))
         router.push('/dashboard')
       } else {
-        const { data: existing } = await supabase
+        const { data: existingList } = await supabase
           .from('users')
           .select('id')
           .eq('nickname', nickname)
-          .single()
 
-        if (existing) {
+        if (existingList && existingList.length > 0) {
           setError('Nickname sudah digunakan')
           setLoading(false)
           return
         }
 
-        const { data, error: err } = await supabase
+        const { data: inserted, error: insertErr } = await supabase
           .from('users')
           .insert({
             nickname,
@@ -81,15 +80,14 @@ export default function AuthPage() {
             online: true,
           })
           .select()
-          .single()
 
-        if (err || !data) {
-          setError('Gagal mendaftar. Coba lagi.')
+        if (insertErr || !inserted || inserted.length === 0) {
+          setError(insertErr?.message || 'Gagal mendaftar. Coba lagi.')
           setLoading(false)
           return
         }
 
-        localStorage.setItem('gabut_user', JSON.stringify(data))
+        localStorage.setItem('gabut_user', JSON.stringify(inserted[0]))
         router.push('/dashboard')
       }
     } catch {
